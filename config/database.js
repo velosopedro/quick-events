@@ -1,17 +1,15 @@
 // config/database.js
-const path = require('path');
-const { Sequelize } = require('sequelize');
+require('dotenv').config();
 
-const sequelize = new Sequelize({
+module.exports = {
   dialect: 'sqlite',
-  storage: path.join(__dirname, '../../database.sqlite'),
-  logging: false, // Desative em produção
+  storage: './database.sqlite',
+  logging: false,
   define: {
     timestamps: true,
     underscored: true,
+    underscoredAll: true,
     createdAt: 'created_at',
-    updatedAt: 'updated_at'
+    updatedAt: 'updated_at',
   }
-});
-
-module.exports = sequelize;
+};
