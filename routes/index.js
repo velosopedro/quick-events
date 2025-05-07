@@ -1,7 +1,11 @@
-const express = require('express');
-const router = express.Router();
+// models/index.js
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: 'database.sqlite',  // Caminho para o banco de dados SQLite
+});
 
-const eventsRoutes = require('./events');
-router.use('/eventos', eventsRoutes);
+const Evento = require('./evento')(sequelize, DataTypes);  // Aqui estamos passando sequelize e DataTypes para o modelo
 
-module.exports = router;
+// Exportando o sequelize (conexão) e os modelos
+module.exports = { sequelize, Evento };

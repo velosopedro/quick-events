@@ -41,3 +41,16 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;
+
+
+// models/index.js
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: 'database.sqlite',  // Caminho para o banco de dados SQLite
+});
+
+// Importando o modelo Evento
+const Evento = require('./Evento')(sequelize, DataTypes);
+
+module.exports = { sequelize, Evento };
