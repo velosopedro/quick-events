@@ -1,64 +1,22 @@
-# 🎉 QuickEvents
+# Quick Events API
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Status-Concluído-green" alt="Status: Concluído"/>
-  <img src="https://img.shields.io/badge/Version-1.0.0-blue" alt="Version: 1.0.0"/>
-</div>
+API RESTful para gerenciamento de eventos com autenticação JWT.
 
-<br>
+## 🚀 Funcionalidades
 
-<div align="center">
-  <p>✨ API RESTful para gerenciamento de eventos comunitários ✨</p>
-  <p>Desenvolvido com 💜 pelos alunos do 2°DS Manhã da ETEC Zona Leste</p>
-</div>
+- Autenticação com JWT
+- CRUD completo de eventos
+- Controle de acesso baseado em roles
+- Documentação com Swagger
+- Testes automatizados
 
-## 📋 Sobre o Projeto
+## 📋 Pré-requisitos
 
-O QuickEvents é uma API RESTful desenvolvida para facilitar o gerenciamento de eventos comunitários. O projeto foi desenvolvido como parte do curso de Desenvolvimento de Sistemas da ETEC Zona Leste, com o objetivo de aplicar os conhecimentos adquiridos em sala de aula em um projeto real.
+- Node.js (v14 ou superior)
+- npm ou yarn
+- SQLite
 
-### 🎯 Objetivos
-
-- Criar uma API robusta e escalável para gerenciamento de eventos
-- Implementar boas práticas de desenvolvimento e segurança
-- Aplicar os conceitos aprendidos em sala de aula
-- Desenvolver uma solução que possa ser utilizada pela comunidade
-
-### ✨ Funcionalidades
-
-- **Gestão Completa de Eventos**
-
-  - Criação, leitura, atualização e exclusão de eventos
-  - Validação de dados e datas
-  - Busca por eventos específicos
-
-- **Segurança**
-
-  - Proteção contra injeção SQL
-  - Validação de dados
-  - Headers de segurança com Helmet
-  - CORS configurado
-
-- **Documentação**
-
-  - Swagger UI para documentação interativa
-  - README detalhado
-  - Código comentado
-
-- **Banco de Dados**
-  - SQLite para desenvolvimento
-  - Migrations para controle de versão
-  - Modelos com validações
-
-## 🚀 Tecnologias
-
-<div align="center">
-  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js"/>
-  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express"/>
-  <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white" alt="Sequelize"/>
-  <img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite"/>
-</div>
-
-## 🛠️ Instalação
+## 🔧 Instalação
 
 1. Clone o repositório:
 
@@ -73,92 +31,150 @@ cd quick-events
 npm install
 ```
 
-3. Configure o ambiente:
+3. Configure as variáveis de ambiente:
+   Crie um arquivo `.env` na raiz do projeto com:
 
-```bash
-# Crie um arquivo .env na raiz do projeto
+```
 NODE_ENV=development
 PORT=3000
+JWT_SECRET=sua_chave_secreta
 ```
 
-4. Inicie o servidor:
+4. Execute as migrações:
+
+```bash
+npx sequelize-cli db:migrate
+```
+
+5. Inicie o servidor:
 
 ```bash
 npm run dev
-```
-
-## 📝 Endpoints
-
-### Eventos
-
-| Método | Endpoint              | Descrição                  |
-| ------ | --------------------- | -------------------------- |
-| GET    | `/api/v1/eventos`     | Lista todos os eventos     |
-| GET    | `/api/v1/eventos/:id` | Busca um evento específico |
-| POST   | `/api/v1/eventos`     | Cria um novo evento        |
-| PUT    | `/api/v1/eventos/:id` | Atualiza um evento         |
-| DELETE | `/api/v1/eventos/:id` | Remove um evento           |
-
-### 📋 Formato do Evento
-
-```json
-{
-  "nome": "Nome do Evento",
-  "descricao": "Descrição do evento",
-  "data": "2024-03-20T19:00:00.000Z",
-  "local": "Local do evento"
-}
-```
-
-## 💻 Desenvolvimento
-
-### Comandos Úteis
-
-```bash
-# Iniciar em modo desenvolvimento
-npm run dev
-
-# Recriar banco de dados
-npm run db:reset
-
-# Atualizar estrutura do banco
-npm run db:migrate
 ```
 
 ## 📚 Documentação
 
-A documentação completa da API está disponível em:
+A documentação da API está disponível em:
 
 ```
 http://localhost:3000/api-docs
 ```
 
-## 👥 Equipe
+## 🔐 Autenticação
 
-<div align="center">
+A API usa JWT para autenticação. Para acessar rotas protegidas:
 
-### Desenvolvedores
+1. Registre um usuário:
 
-| Nome                 | Função                   |
-| -------------------- | ------------------------ |
-| Pedro Veloso         | Desenvolvedor Full Stack |
-| Guilherme Penarrubia | Desenvolvedor Backend    |
-| Leonardo Eiji        | Desenvolvedor Frontend   |
-| Pedro Henrique Amaro | Desenvolvedor Full Stack |
+```bash
+POST /api/v1/auth/register
+{
+  "nome": "Seu Nome",
+  "email": "seu@email.com",
+  "senha": "123456"
+}
+```
 
-</div>
+2. Faça login:
 
-## 🔜 Próximos Passos
+```bash
+POST /api/v1/auth/login
+{
+  "email": "seu@email.com",
+  "senha": "123456"
+}
+```
 
-- [ ] Implementar autenticação de usuários
-- [ ] Adicionar sistema de categorias para eventos
-- [ ] Desenvolver interface web
-- [ ] Adicionar sistema de notificações
-- [ ] Implementar busca avançada de eventos
+3. Use o token retornado no header das requisições:
 
----
+```
+Authorization: Bearer seu_token_jwt
+```
 
-<div align="center">
-  <p>Desenvolvido com 💜 pelos alunos do 2°DS Manhã</p>
-  <p>ETEC Zona Leste - 2024</p>
-</div>
+## 🎯 Endpoints
+
+### Autenticação
+
+- `POST /api/v1/auth/register` - Registro de usuário
+- `POST /api/v1/auth/login` - Login
+- `GET /api/v1/auth/me` - Dados do usuário logado
+
+### Eventos
+
+- `GET /api/v1/eventos` - Lista todos os eventos
+- `POST /api/v1/eventos` - Cria um evento
+- `GET /api/v1/eventos/:id` - Busca um evento
+- `PUT /api/v1/eventos/:id` - Atualiza um evento
+- `DELETE /api/v1/eventos/:id` - Remove um evento
+
+## 🧪 Testes
+
+Execute os testes com:
+
+```bash
+npm test
+```
+
+## 📦 Estrutura do Projeto
+
+```
+quick-events/
+├── src/
+│   ├── config/
+│   │   ├── database.js
+│   │   └── swagger.json
+│   ├── controllers/
+│   │   ├── AuthController.js
+│   │   └── EventoController.js
+│   ├── middlewares/
+│   │   └── auth.js
+│   ├── models/
+│   │   ├── Evento.js
+│   │   ├── Usuario.js
+│   │   └── index.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   ├── eventos.js
+│   │   └── index.js
+│   ├── tests/
+│   │   ├── auth.test.js
+│   │   └── eventos.test.js
+│   ├── app.js
+│   └── server.js
+├── migrations/
+├── config/
+├── .env
+├── .gitignore
+├── package.json
+└── README.md
+```
+
+## 🔒 Segurança
+
+- Autenticação JWT
+- Senhas criptografadas com bcrypt
+- Validação de dados
+- Proteção contra SQL Injection
+- Headers de segurança com Helmet
+
+## 🛠️ Tecnologias
+
+- Node.js
+- Express
+- Sequelize
+- SQLite
+- JWT
+- Jest
+- Swagger
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT.
+
+## 👥 Contribuição
+
+1. Faça o fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request

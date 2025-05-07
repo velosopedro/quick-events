@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Usuarios', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -23,9 +23,9 @@ module.exports = {
         allowNull: false
       },
       role: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('admin', 'user'),
         allowNull: false,
-        defaultValue: 'usuario'
+        defaultValue: 'user'
       },
       created_at: {
         type: Sequelize.DATE,
@@ -39,6 +39,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Usuarios');
   }
 };
