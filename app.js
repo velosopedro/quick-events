@@ -13,9 +13,9 @@ const port = 3000;
 const app = express();
 
 // Sincronizando o banco de dados com o Sequelize
-sequelize.sync()
+sequelize.sync({ force: true })  // Forçando a recriação das tabelas
   .then(() => {
-    console.log('Banco de dados sincronizado');
+    console.log('Banco de dados sincronizado e tabelas recriadas');
   })
   .catch((error) => {
     console.error('Erro ao sincronizar o banco de dados:', error);

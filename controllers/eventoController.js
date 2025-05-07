@@ -16,7 +16,7 @@ exports.listarEventos = async (req, res, next) => {
     
     if (local) {
       where.local = {
-        [Op.iLike]: `%${local}%`
+        [Op.like]: `%${local}%`
       };
     }
 
@@ -27,6 +27,7 @@ exports.listarEventos = async (req, res, next) => {
     
     res.json(eventos);
   } catch (error) {
+    console.error('Erro ao listar eventos:', error);
     next(error);
   }
 };

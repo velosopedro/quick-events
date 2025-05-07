@@ -29,10 +29,6 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isDate: {
           msg: 'Data inválida'
-        },
-        isAfter: {
-          args: new Date().toISOString(),
-          msg: 'A data do evento deve ser futura'
         }
       }
     },
@@ -48,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'eventos',
     timestamps: true,
-    paranoid: true // Soft delete
+    paranoid: false // Removendo soft delete por enquanto
   });
 
   return Evento;

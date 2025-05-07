@@ -4,7 +4,7 @@ const config = require('../config/database');
 
 const sequelize = new Sequelize(config);
 
-const Evento = require('./evento')(sequelize, Sequelize.DataTypes);
+const Evento = require('./Evento')(sequelize, Sequelize.DataTypes);
 
 const db = {
   sequelize,

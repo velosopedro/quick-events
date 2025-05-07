@@ -1,38 +1,40 @@
 {
   "name": "eventos-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "API RESTful para gerenciamento de eventos comunitários",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:reset": "rm -f database.sqlite && node -e \"require('./models').sequelize.sync({force: true}).then(() => console.log('Banco de dados recriado com sucesso!'))\"",
+    "db:migrate": "node -e \"require('./models').sequelize.sync().then(() => console.log('Banco de dados migrado com sucesso!'))\"",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/velosopedro/eventos-api.git"
-  },
-  "keywords": [],
+  "keywords": [
+    "api",
+    "eventos",
+    "express",
+    "sequelize"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/velosopedro/eventos-api/issues"
   },
   "homepage": "https://github.com/velosopedro/eventos-api#readme",
-  "description": "",
   "dependencies": {
-    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "helmet": "^6.0.1",
     "morgan": "^1.10.0",
-    "sequelize": "^6.37.7",
-    "sqlite3": "^5.1.7",
-    "swagger-ui-express": "^5.0.1"
+    "sequelize": "^6.31.0",
+    "sqlite3": "^5.1.6",
+    "swagger-ui-express": "^4.6.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10",
-    "sequelize-cli": "^6.6.3"
+    "nodemon": "^2.0.22"
   }
 }

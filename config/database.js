@@ -1,10 +1,11 @@
 // config/database.js
 require('dotenv').config();
+const path = require('path');
 
 module.exports = {
   dialect: 'sqlite',
-  storage: './database.sqlite',
-  logging: false,
+  storage: path.join(__dirname, '../database.sqlite'),
+  logging: console.log,
   define: {
     timestamps: true,
     underscored: true,

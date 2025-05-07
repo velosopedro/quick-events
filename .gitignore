@@ -5,3 +5,6 @@ node_modules/
 coverage/
 tmp/
 *.sqlitenpm init -y
+test.http
+.env
+.env.*
