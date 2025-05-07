@@ -3,7 +3,6 @@
 <div align="center">
   <img src="https://img.shields.io/badge/Status-Concluído-green" alt="Status: Concluído"/>
   <img src="https://img.shields.io/badge/Version-1.0.0-blue" alt="Version: 1.0.0"/>
-  <img src="https://img.shields.io/badge/License-ISC-yellow" alt="License: ISC"/>
 </div>
 
 <br>
@@ -64,8 +63,8 @@ O QuickEvents é uma API RESTful desenvolvida para facilitar o gerenciamento de 
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seu-usuario/quickevents.git
-cd quickevents
+git clone https://github.com/seu-usuario/quick-events.git
+cd quick-events
 ```
 
 2. Instale as dependências:
@@ -156,10 +155,6 @@ http://localhost:3000/api-docs
 - [ ] Desenvolver interface web
 - [ ] Adicionar sistema de notificações
 - [ ] Implementar busca avançada de eventos
-
-## 📄 Licença
-
-Este projeto está sob a licença ISC. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
 

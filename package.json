@@ -1,40 +1,35 @@
 {
-  "name": "eventos-api",
+  "name": "quick-events",
   "version": "1.0.0",
   "description": "API RESTful para gerenciamento de eventos comunitários",
-  "main": "app.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "db:reset": "rm -f database.sqlite && node -e \"require('./models').sequelize.sync({force: true}).then(() => console.log('Banco de dados recriado com sucesso!'))\"",
-    "db:migrate": "node -e \"require('./models').sequelize.sync().then(() => console.log('Banco de dados migrado com sucesso!'))\"",
-    "lint": "eslint .",
-    "format": "prettier --write ."
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:reset": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate"
   },
   "keywords": [
     "api",
     "eventos",
+    "rest",
+    "nodejs",
     "express",
     "sequelize"
   ],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/velosopedro/eventos-api/issues"
-  },
-  "homepage": "https://github.com/velosopedro/eventos-api#readme",
+  "author": "Equipe QuickEvents - ETEC Zona Leste",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "helmet": "^6.0.1",
-    "morgan": "^1.10.0",
-    "sequelize": "^6.31.0",
-    "sqlite3": "^5.1.6",
-    "swagger-ui-express": "^4.6.2"
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "helmet": "^7.1.0",
+    "sequelize": "^6.37.1",
+    "sqlite3": "^5.1.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^3.1.0",
+    "sequelize-cli": "^6.6.2"
   }
 }
