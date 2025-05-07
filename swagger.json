@@ -1,0 +1,282 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Eventos",
+    "version": "1.0.0",
+    "description": "API para gerenciamento de eventos",
+    "contact": {
+      "name": "Suporte",
+      "email": "suporte@eventos.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "Servidor de Desenvolvimento"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Eventos",
+      "description": "Operações relacionadas a eventos"
+    }
+  ],
+  "paths": {
+    "/eventos": {
+      "get": {
+        "tags": ["Eventos"],
+        "summary": "Lista todos os eventos",
+        "description": "Retorna uma lista de eventos com opção de filtros",
+        "parameters": [
+          {
+            "name": "data_inicio",
+            "in": "query",
+            "description": "Data inicial para filtrar eventos",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "data_fim",
+            "in": "query",
+            "description": "Data final para filtrar eventos",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "local",
+            "in": "query",
+            "description": "Local para filtrar eventos",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de eventos retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Evento"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Eventos"],
+        "summary": "Cria um novo evento",
+        "description": "Cria um novo evento com os dados fornecidos",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventoInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Evento criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Evento"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/eventos/{id}": {
+      "get": {
+        "tags": ["Eventos"],
+        "summary": "Busca um evento específico",
+        "description": "Retorna um evento específico pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do evento",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Evento encontrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Evento"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Evento não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Eventos"],
+        "summary": "Atualiza um evento",
+        "description": "Atualiza um evento existente pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do evento",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventoInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Evento atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Evento"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Evento não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Eventos"],
+        "summary": "Remove um evento",
+        "description": "Remove um evento existente pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do evento",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Evento removido com sucesso"
+          },
+          "404": {
+            "description": "Evento não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Evento": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nome": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100
+          },
+          "descricao": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "data": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "local": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["nome", "data", "local"]
+      },
+      "EventoInput": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100
+          },
+          "descricao": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "data": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "local": {
+            "type": "string"
+          }
+        },
+        "required": ["nome", "data", "local"]
+      }
+    }
+  }
+} 
